@@ -18,6 +18,7 @@ const state = {
   favorites: new Set(JSON.parse(localStorage.getItem('orbit-favorites') || '[]').map(String)),
   downloads: JSON.parse(localStorage.getItem('orbit-downloads') || '[]').map(String),
   playlists: JSON.parse(localStorage.getItem('orbit-playlists') || '[]'),
+  playlistTracks: JSON.parse(localStorage.getItem('orbit-playlist-tracks') || '{}'),
   remoteLibrary: JSON.parse(localStorage.getItem('orbit-remote-library') || '{}')
 };
 
@@ -33,6 +34,7 @@ function saveState() {
   localStorage.setItem('orbit-favorites', JSON.stringify([...state.favorites]));
   localStorage.setItem('orbit-downloads', JSON.stringify(state.downloads));
   localStorage.setItem('orbit-playlists', JSON.stringify(state.playlists));
+  localStorage.setItem('orbit-playlist-tracks', JSON.stringify(state.playlistTracks));
   localStorage.setItem('orbit-remote-library', JSON.stringify(state.remoteLibrary));
 }
 
@@ -51,7 +53,7 @@ function formatTime(seconds) {
 
 function renderPlaylists() {
   $('#playlistNav').innerHTML = state.playlists.length
-    ? state.playlists.map(name => `<button class="playlist-link" data-playlist-name="${name.replaceAll('"','&quot;')}">${escapeHtml(name)}</button>`).join('')
+    ? state.playlists.map(name => `<div class="playlist-item"><button class="playlist-link" data-playlist-name="${name.replaceAll('"','&quot;')}">${escapeHtml(name)}<span>${(state.playlistTracks[name] || []).length}</span></button><button class="playlist-add" data-add-playlist="${name.replaceAll('"','&quot;')}" aria-label="将当前歌曲加入 ${escapeHtml(name)}">+</button></div>`).join('')
     : '<p class="playlist-empty">还没有歌单</p>';
 }
 
@@ -299,14 +301,14 @@ function showView(view) {
   else visibleTracks = all;
   playQueue = visibleTracks;
   renderTracks(visibleTracks);
-  if (innerWidth < 740) closeSidebar();
+  if (innerWidth < 980) closeSidebar();
 }
 
 function closeSidebar() {
   $('.sidebar').classList.remove('open');
   document.body.classList.remove('menu-open');
   $('#mobileMenu').setAttribute('aria-expanded', 'false');
-  if (innerWidth < 740) $('.sidebar').inert = true;
+  if (innerWidth < 980) $('.sidebar').inert = true;
 }
 
 function toggleSidebar() {
@@ -318,7 +320,7 @@ function toggleSidebar() {
 }
 
 function syncSidebarA11y() {
-  if (innerWidth >= 740) $('.sidebar').inert = false;
+  if (innerWidth >= 980) $('.sidebar').inert = false;
   else if (!$('.sidebar').classList.contains('open')) $('.sidebar').inert = true;
 }
 
@@ -422,7 +424,7 @@ $('#queueBtn').onclick = () => toast(`播放队列 · ${playQueue.length} 首`);
 $('#sortBtn').onclick = () => { visibleTracks.reverse(); playQueue = visibleTracks; renderTracks(); toast('歌曲顺序已切换'); };
 $('#createPlaylistBtn').onclick = () => { $('#playlistModal').hidden = false; setTimeout(() => $('#playlistName').focus(), 50); };
 $('[data-close-modal]').onclick = () => { $('#playlistModal').hidden = true; $('#createPlaylistBtn').focus(); };
-$('#savePlaylistBtn').onclick = () => { const name=$('#playlistName').value.trim(); if(!name) return toast('请先输入歌单名称'); state.playlists.push(name); saveState(); renderPlaylists(); $('#playlistModal').hidden=true; $('#playlistName').value=''; $('#createPlaylistBtn').focus(); toast(`歌单「${name}」已创建`); };
+$('#savePlaylistBtn').onclick = () => { const name=$('#playlistName').value.trim(); if(!name) return toast('请先输入歌单名称'); if(state.playlists.includes(name)) return toast('已经有同名歌单'); state.playlists.push(name); state.playlistTracks[name] ||= []; saveState(); renderPlaylists(); $('#playlistModal').hidden=true; $('#playlistName').value=''; $('#createPlaylistBtn').focus(); toast(`歌单「${name}」已创建`); };
 $('#playlistModal').addEventListener('keydown', e => {
   if (e.key !== 'Tab') return;
   const focusable = $$(`#playlistModal button, #playlistModal input`).filter(el => !el.disabled);
@@ -432,7 +434,29 @@ $('#playlistModal').addEventListener('keydown', e => {
   if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
   else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 });
-$('#playlistNav').addEventListener('click', e => { const b=e.target.closest('[data-playlist-name]'); if(b) { toast(`已打开歌单「${b.dataset.playlistName}」`); closeSidebar(); } });
+$('#playlistNav').addEventListener('click', e => {
+  const add = e.target.closest('[data-add-playlist]');
+  if (add) {
+    const track = currentTrack();
+    if (!track) return toast('请先播放或选择一首歌曲');
+    const name = add.dataset.addPlaylist;
+    const ids = state.playlistTracks[name] ||= [];
+    const id = String(track.id);
+    if (!ids.includes(id)) ids.push(id);
+    if (track.remote) { const saved = {...track}; delete saved.resolvedUrl; delete saved.lyrics; state.remoteLibrary[id] = saved; }
+    saveState(); renderPlaylists(); toast(`已加入歌单「${name}」`); return;
+  }
+  const open = e.target.closest('[data-playlist-name]');
+  if (open) {
+    const name = open.dataset.playlistName;
+    visibleTracks = (state.playlistTracks[name] || []).map(getTrackById).filter(Boolean);
+    playQueue = visibleTracks;
+    $('#sectionTitle').textContent = name;
+    $('#sectionSubtitle').textContent = visibleTracks.length ? `${visibleTracks.length} 首歌曲` : '播放一首歌后，点击歌单旁的 + 即可加入。';
+    $$('.nav-item').forEach(x => x.classList.remove('active'));
+    renderTracks(visibleTracks); closeSidebar();
+  }
+});
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if ($('#playlistModal').hidden === false) { $('#playlistModal').hidden = true; $('#createPlaylistBtn').focus(); return; }
