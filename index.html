@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Orbit Music — 搜索、播放、收藏、下载与同步歌词。" />
   <title>Orbit Music</title>
@@ -122,7 +122,7 @@
       <div class="progress-row"><span id="currentTime">00:00</span><input id="progress" type="range" min="0" max="100" value="0" aria-label="播放进度" /><span id="duration">00:00</span></div>
     </div>
     <div class="player-tools">
-      <button id="lyricsBtn" class="lyrics-button" aria-label="查看歌词" aria-controls="lyricsPanel" aria-expanded="false"><svg class="icon"><use href="#icon-lyrics"/></svg><span>歌词</span></button>
+      <button id="lyricsBtn" class="lyrics-button" aria-label="查看歌词" aria-controls="lyricsPanel" aria-expanded="false"><svg class="icon"><use href="#icon-lyrics"/></svg><span>歌词</span><b class="lyrics-glyph" aria-hidden="true">词</b></button>
       <button id="queueBtn" aria-label="播放队列"><svg class="icon"><use href="#icon-list"/></svg></button>
       <svg class="icon volume-icon"><use href="#icon-volume"/></svg><input id="volume" type="range" min="0" max="100" value="75" aria-label="音量" />
       <button id="downloadCurrent" aria-label="下载当前歌曲"><svg class="icon"><use href="#icon-download"/></svg></button>
