@@ -11,6 +11,7 @@ let audioUrls = new Map();
 let localTracks = [];
 let searchTracks = [];
 let searchSerial = 0;
+let activePlaylistName = null;
 const audio = document.querySelector('#audio');
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
@@ -289,6 +290,7 @@ async function downloadTrack(track) {
 }
 
 function showView(view) {
+  activePlaylistName = null;
   $$('.nav-item').forEach(x => x.classList.toggle('active', x.dataset.view === view));
   const titles = {discover:'搜索音乐', library:'我的曲库', favorites:'我的收藏', downloads:'下载记录'};
   const subtitles = {discover:'输入歌曲、艺人或专辑名称，结果会显示在这里。', library:'收藏和导入的音乐都会保存在这里。', favorites:'你标记喜欢的歌曲。', downloads:'曾经下载过的歌曲。'};
@@ -301,14 +303,14 @@ function showView(view) {
   else visibleTracks = all;
   playQueue = visibleTracks;
   renderTracks(visibleTracks);
-  if (innerWidth < 980) closeSidebar();
+  if (innerWidth <= 980) closeSidebar();
 }
 
 function closeSidebar() {
   $('.sidebar').classList.remove('open');
   document.body.classList.remove('menu-open');
   $('#mobileMenu').setAttribute('aria-expanded', 'false');
-  if (innerWidth < 980) $('.sidebar').inert = true;
+  if (innerWidth <= 980) $('.sidebar').inert = true;
 }
 
 function toggleSidebar() {
@@ -320,7 +322,7 @@ function toggleSidebar() {
 }
 
 function syncSidebarA11y() {
-  if (innerWidth >= 980) $('.sidebar').inert = false;
+  if (innerWidth > 980) $('.sidebar').inert = false;
   else if (!$('.sidebar').classList.contains('open')) $('.sidebar').inert = true;
 }
 
@@ -384,6 +386,12 @@ $('#trackTable').addEventListener('click', e => {
   if (btn.dataset.action === 'download') downloadTrack(track);
   if (btn.dataset.action === 'delete') {
     const id = String(track.id);
+    if (activePlaylistName) {
+      state.playlistTracks[activePlaylistName] = (state.playlistTracks[activePlaylistName] || []).filter(item => item !== id);
+      visibleTracks = visibleTracks.filter(item => String(item.id) !== id);
+      playQueue = visibleTracks;
+      saveState(); renderPlaylists(); renderTracks(); toast(`已从歌单「${activePlaylistName}」移除`); return;
+    }
     if (!track.remote && !track.localUrl) return toast('这首歌曲不能删除');
     localTracks = localTracks.filter(t => String(t.id) !== id); visibleTracks = visibleTracks.filter(t => String(t.id) !== id);
     delete state.remoteLibrary[id]; state.favorites.delete(id); state.downloads = state.downloads.filter(item => item !== id);
@@ -449,6 +457,7 @@ $('#playlistNav').addEventListener('click', e => {
   const open = e.target.closest('[data-playlist-name]');
   if (open) {
     const name = open.dataset.playlistName;
+    activePlaylistName = name;
     visibleTracks = (state.playlistTracks[name] || []).map(getTrackById).filter(Boolean);
     playQueue = visibleTracks;
     $('#sectionTitle').textContent = name;
