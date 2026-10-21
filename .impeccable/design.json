@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T04:40:01Z",
+  "title": "Design System: Orbit Music",
+  "extensions": {
+    "colorMeta": {
+      "true-black": {
+        "role": "neutral",
+        "displayName": "True Black",
+        "canonical": "#000000",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#111111",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "Raised",
+        "canonical": "#222222",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "active": {
+        "role": "neutral",
+        "displayName": "Active Surface",
+        "canonical": "#1b1b1b",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "canonical": "#1a1a1a",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#181818",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "Control Border",
+        "canonical": "#454545",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Primary Text",
+        "canonical": "#ffffff",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Muted Text",
+        "canonical": "#b7b7b7",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "text-faint": {
+        "role": "neutral",
+        "displayName": "Faint Text",
+        "canonical": "#929292",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(72% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)"]
+      },
+      "signal-orange": {
+        "role": "primary",
+        "displayName": "Signal Orange",
+        "canonical": "#ff5a36",
+        "tonalRamp": ["oklch(15% 0.20 35)", "oklch(25% 0.20 35)", "oklch(35% 0.20 35)", "oklch(45% 0.20 35)", "oklch(60% 0.20 35)", "oklch(72% 0.20 35)", "oklch(84% 0.20 35)", "oklch(95% 0.20 35)"]
+      },
+      "negative": {
+        "role": "tertiary",
+        "displayName": "Negative",
+        "canonical": "#e5566f",
+        "tonalRamp": ["oklch(15% 0.17 15)", "oklch(25% 0.17 15)", "oklch(35% 0.17 15)", "oklch(45% 0.17 15)", "oklch(60% 0.17 15)", "oklch(72% 0.17 15)", "oklch(84% 0.17 15)", "oklch(95% 0.17 15)"]
+      }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Headline", "purpose": "Names the active search, library, playlist, or management context." },
+      "title": { "displayName": "Title", "purpose": "Empty states, dialogs, track details, and lyric identity." },
+      "body": { "displayName": "Body", "purpose": "Standard interface copy and explanatory text." },
+      "label": { "displayName": "Label", "purpose": "Metadata, table headers, quality badges, counts, timestamps, and controls." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "state", "value": "200ms ease", "purpose": "Hover, toast, lyric, and state feedback." },
+      { "name": "navigation-sheet", "value": "280ms cubic-bezier(.22,1,.36,1)", "purpose": "Mobile navigation sheet entrance and exit." },
+      { "name": "lyrics-surface", "value": "350ms cubic-bezier(.22,1,.36,1)", "purpose": "Lyrics reading surface entrance and exit." },
+      { "name": "loading-spin", "value": "700ms linear infinite", "purpose": "Search-loading indicator only." },
+      { "name": "reduced-motion", "value": "none", "purpose": "Removes sheet, lyrics, and toast transitions when reduced motion is requested." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "700px" },
+      { "name": "compact-shell", "value": "980px" }
+    ],
+    "components": [
+      {
+        "name": "Primary Button",
+        "kind": "button",
+        "refersTo": "button-primary",
+        "description": "The white-on-black action used for search, recovery, and confirmation.",
+        "html": "<button class=\"ds-btn-primary\">开始搜索</button>",
+        "css": ".ds-btn-primary { height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--text); color: var(--ground); font: 600 12px/1 'Inter','Noto Sans SC',system-ui,sans-serif; cursor: pointer; } .ds-btn-primary:hover { background: #e4e4e4; } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+      },
+      {
+        "name": "Secondary Button",
+        "kind": "button",
+        "refersTo": "button-secondary",
+        "description": "A bordered utility action that stays quiet until interaction.",
+        "html": "<button class=\"ds-btn-secondary\">管理曲库</button>",
+        "css": ".ds-btn-secondary { height: 34px; padding: 0 14px; border: 1px solid var(--control); border-radius: 999px; background: transparent; color: var(--muted); font: 500 12px/1 'Inter','Noto Sans SC',system-ui,sans-serif; cursor: pointer; } .ds-btn-secondary:hover { color: var(--text); border-color: #777; } .ds-btn-secondary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+      },
+      {
+        "name": "Search Field",
+        "kind": "input",
+        "refersTo": "input-search",
+        "description": "The compact command-first search control from the top bar.",
+        "html": "<label class=\"ds-search\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"m16 16 4 4\"/></svg><input type=\"search\" placeholder=\"搜索歌曲、艺人或专辑\"><kbd>⌘ K</kbd><button type=\"button\">搜索</button></label>",
+        "css": ".ds-search { width: min(620px,100%); height: 38px; padding-left: 12px; border-radius: 999px; background: #171717; color: var(--muted); display: grid; grid-template-columns: 20px 1fr auto auto; align-items: center; gap: 10px; font-family: 'Inter','Noto Sans SC',system-ui,sans-serif; } .ds-search:focus-within { background: #1e1e1e; } .ds-search svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; } .ds-search input { min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text); font: inherit; } .ds-search input::placeholder { color: var(--faint); } .ds-search kbd { padding: 3px 7px; border-radius: 5px; background: #2b2b2b; color: var(--muted); font-size: 11px; } .ds-search button { height: 32px; margin-right: 3px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--text); color: var(--ground); font-weight: 600; cursor: pointer; } .ds-search button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+      },
+      {
+        "name": "Navigation Item",
+        "kind": "nav",
+        "refersTo": "nav-item-active",
+        "description": "A compact library destination, shown in its active state.",
+        "html": "<button class=\"ds-nav-item ds-active\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"m14.8 9.2-2 5.6-5.6 2 2-5.6 5.6-2Z\"/></svg><span>搜索音乐</span><b>12</b></button>",
+        "css": ".ds-nav-item { width: 100%; min-height: 40px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 10px; text-align: left; font: 400 14px/1.2 'Inter','Noto Sans SC',system-ui,sans-serif; cursor: pointer; } .ds-nav-item svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; } .ds-nav-item b { color: var(--faint); font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; } .ds-nav-item:hover { color: var(--text); background: #0b0b0b; } .ds-nav-item.ds-active { color: var(--text); background: var(--active); } .ds-nav-item:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+      },
+      {
+        "name": "Current Track Row",
+        "kind": "custom",
+        "refersTo": "track-row-current",
+        "description": "The content-dense music row with a flat current-track marker.",
+        "html": "<article class=\"ds-track-row ds-current\"><button class=\"ds-row-index\" aria-label=\"播放\">01</button><div class=\"ds-track-meta\"><div class=\"ds-cover\">01</div><div><strong>轨道名称</strong><span>艺人名称</span></div></div><span class=\"ds-album\">专辑名称</span><span class=\"ds-quality\">FLAC</span><span class=\"ds-time\">03:42</span><button class=\"ds-row-action\">播放</button></article>",
+        "css": ".ds-track-row { position: relative; min-height: 76px; padding: 8px 14px; border-top: 1px solid var(--rule); color: var(--text); display: grid; grid-template-columns: 46px minmax(200px,2fr) minmax(120px,1.2fr) 70px 60px 74px; align-items: center; gap: 16px; font-family: 'Inter','Noto Sans SC',system-ui,sans-serif; } .ds-track-row.ds-current { background: var(--surface); } .ds-track-row.ds-current::before { content: ''; position: absolute; left: 0; width: 2px; height: 36px; background: var(--accent); } .ds-row-index { width: 36px; height: 36px; border: 0; background: none; color: var(--faint); } .ds-track-meta { display: flex; align-items: center; gap: 14px; min-width: 0; } .ds-cover { width: 48px; height: 48px; border-radius: 4px; background: #252525; display: grid; place-items: center; color: #d9d9d9; font-size: 11px; } .ds-track-meta > div:last-child { min-width: 0; display: grid; gap: 5px; } .ds-track-meta strong, .ds-track-meta span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ds-track-meta strong { font-weight: 500; } .ds-track-meta span, .ds-album, .ds-time { color: var(--muted); } .ds-quality { width: fit-content; padding: 4px 8px; border-radius: 4px; background: #202020; color: #d6d6d6; font-size: 11px; } .ds-row-action { height: 36px; padding: 0 13px; border: 1px solid var(--control); border-radius: 999px; background: transparent; color: var(--text); cursor: pointer; } .ds-row-action:hover { background: var(--raised); } .ds-row-action:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+      },
+      {
+        "name": "Persistent Player",
+        "kind": "custom",
+        "refersTo": "persistent-player",
+        "description": "The signature three-zone playback desk that stays anchored across layouts.",
+        "html": "<section class=\"ds-player\"><div class=\"ds-now\"><div class=\"ds-mini-cover\">O</div><div><strong>尚未播放</strong><span>搜索一首歌开始聆听</span></div></div><div class=\"ds-transport\"><button aria-label=\"上一首\">‹</button><button class=\"ds-play\" aria-label=\"播放\">▶</button><button aria-label=\"下一首\">›</button><input type=\"range\" min=\"0\" max=\"100\" value=\"32\"></div><button class=\"ds-lyrics\">歌词</button></section>",
+        "css": ".ds-player { min-height: 92px; padding: 0 22px; border-top: 1px solid var(--raised); background: var(--surface); color: var(--text); display: grid; grid-template-columns:minmax(210px,1fr) minmax(300px,1.35fr) minmax(120px,1fr); align-items: center; gap: 22px; font-family: 'Inter','Noto Sans SC',system-ui,sans-serif; } .ds-now { display: grid; grid-template-columns:56px minmax(0,1fr); align-items:center; gap:12px; min-width:0; } .ds-mini-cover { width:56px; height:56px; border-radius:6px; background:#252525; display:grid; place-items:center; font-weight:600; } .ds-now > div:last-child { min-width:0; display:grid; gap:5px; } .ds-now strong, .ds-now span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; } .ds-now strong { font-weight:500; } .ds-now span { color:var(--muted); font-size:12px; } .ds-transport { display:grid; grid-template-columns:36px 38px 36px; justify-content:center; align-items:center; gap:7px; } .ds-transport button, .ds-lyrics { height:36px; border:0; border-radius:999px; background:transparent; color:var(--muted); cursor:pointer; } .ds-transport .ds-play { width:38px; height:38px; background:var(--text); color:var(--ground); } .ds-transport input { grid-column:1/4; width:100%; accent-color:var(--accent); } .ds-lyrics { justify-self:end; padding:0 12px; border:1px solid var(--control); color:var(--text); } .ds-player button:focus-visible { outline:2px solid #fff; outline-offset:3px; }"
+      },
+      {
+        "name": "Transport Play",
+        "kind": "button",
+        "refersTo": "transport-play",
+        "description": "The unmistakable white circular play and pause control.",
+        "html": "<button class=\"ds-transport-play\" aria-label=\"播放\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m8 5 11 7-11 7V5Z\"/></svg></button>",
+        "css": ".ds-transport-play { width:38px; height:38px; padding:0; border:0; border-radius:999px; background:var(--text); color:var(--ground); display:grid; place-items:center; cursor:pointer; } .ds-transport-play svg { width:18px; fill:currentColor; } .ds-transport-play:hover { background:#e4e4e4; } .ds-transport-play:focus-visible { outline:2px solid #fff; outline-offset:3px; }"
+      },
+      {
+        "name": "Lyrics Surface",
+        "kind": "custom",
+        "refersTo": "lyrics-surface",
+        "description": "The edge-to-edge reading mode, shown with track identity and synchronized lines.",
+        "html": "<section class=\"ds-lyrics-surface\"><button class=\"ds-lyrics-close\" aria-label=\"关闭歌词\">×</button><div class=\"ds-lyrics-meta\"><div class=\"ds-large-cover\">ORBIT</div><h2>歌曲名称</h2><p>艺人名称</p></div><div class=\"ds-lyrics-copy\"><span>上一句歌词</span><strong>当前播放的歌词</strong><span>下一句歌词</span></div></section>",
+        "css": ".ds-lyrics-surface { position:relative; min-height:520px; padding:6vh 7vw; background:#0a0a0a; color:var(--text); display:grid; grid-template-columns:minmax(260px,36%) minmax(0,1fr); gap:7vw; font-family:'Inter','Noto Sans SC',system-ui,sans-serif; } .ds-lyrics-close { position:absolute; top:22px; right:24px; width:44px; height:44px; border:0; border-radius:999px; background:var(--raised); color:var(--text); cursor:pointer; } .ds-large-cover { width:min(28vw,360px); aspect-ratio:1; margin-bottom:26px; border-radius:8px; background:#252525; display:grid; place-items:center; font-size:24px; font-weight:600; } .ds-lyrics-meta { align-self:center; } .ds-lyrics-meta h2 { margin:0 0 8px; font-size:24px; } .ds-lyrics-meta p { margin:0; color:var(--muted); } .ds-lyrics-copy { align-self:center; display:grid; gap:23px; color:#777; font-size:clamp(18px,2vw,26px); font-weight:500; line-height:1.45; } .ds-lyrics-copy strong { color:var(--text); } .ds-lyrics-close:focus-visible { outline:2px solid #fff; outline-offset:3px; }"
+      },
+      {
+        "name": "Dialog Card",
+        "kind": "card",
+        "refersTo": "dialog-card",
+        "description": "A focused playlist-creation surface with rectangular input and white confirmation.",
+        "html": "<section class=\"ds-dialog-card\"><h2>新建歌单</h2><label>歌单名称<input placeholder=\"例如：深夜通勤\"></label><button>创建歌单</button></section>",
+        "css": ".ds-dialog-card { width:min(420px,100%); padding:28px; border-radius:20px; background:#181818; color:var(--text); font-family:'Inter','Noto Sans SC',system-ui,sans-serif; } .ds-dialog-card h2 { margin:0 0 24px; font-size:20px; } .ds-dialog-card label { display:grid; gap:8px; color:var(--muted); } .ds-dialog-card input { height:42px; padding:0 13px; border:1px solid var(--control); border-radius:8px; background:#0b0b0b; color:var(--text); font:inherit; } .ds-dialog-card button { width:100%; height:40px; margin-top:18px; border:0; border-radius:999px; background:var(--text); color:var(--ground); font-weight:600; cursor:pointer; } .ds-dialog-card input:focus-visible, .ds-dialog-card button:focus-visible { outline:2px solid #fff; outline-offset:3px; }"
+      },
+      {
+        "name": "Toast",
+        "kind": "custom",
+        "refersTo": "toast",
+        "description": "A compact inverted status message positioned above the player.",
+        "html": "<div class=\"ds-toast\" role=\"status\">已加入歌单「深夜通勤」</div>",
+        "css": ".ds-toast { width:fit-content; max-width:min(460px,calc(100vw - 32px)); padding:11px 16px; border-radius:999px; background:var(--text); color:var(--ground); font:500 12px/1.3 'Inter','Noto Sans SC',system-ui,sans-serif; }"
+      }
+    ],
+    "narrative": {
+      "northStar": "The Listening Desk",
+      "overview": "Orbit Music is a true-black, flat personal listening workspace. Search, the active library context, real track rows, synchronized lyrics, and playback controls occupy the first useful viewport; there is no promotional hero competing with the music task.\n\nThe persistent playback desk is the visual and interaction anchor. White carries ordinary primary actions, signal orange reports live playback and selected status, and album covers provide the richest color. On phones, navigation and lyrics become intentional full-screen surfaces rather than compressed desktop columns.",
+      "keyCharacteristics": [
+        "True-black ground with flat charcoal separation and one-pixel rules.",
+        "White primary actions; orange reserved for playback and state.",
+        "Real music content and cover art carry visual identity.",
+        "Persistent player across desktop, tablet, and phone.",
+        "Search-first composition with honest empty, loading, and error states.",
+        "Full-screen mobile navigation and lyrics with 44px primary touch targets."
+      ],
+      "rules": [
+        { "name": "The Signal, Not Paint Rule", "body": "Orange reports playback or state; it never becomes a large background, gradient, glow, or decorative wash.", "section": "colors" },
+        { "name": "The Cover Art Owns Color Rule", "body": "Keep application chrome achromatic so real album covers remain the richest color on screen.", "section": "colors" },
+        { "name": "The Metadata Steps Back Rule", "body": "Track identity leads; artist, album, duration, source, and helper copy recede through muted or faint text.", "section": "typography" },
+        { "name": "The Interface Speaks Briefly Rule", "body": "Use short, literal labels and status messages; typography clarifies work rather than selling the product.", "section": "typography" },
+        { "name": "The First Viewport Works Rule", "body": "Search, navigation, the list or empty state, and the playback desk must be immediately usable without scrolling past promotional content.", "section": "layout" },
+        { "name": "The Flat Means Flat Rule", "body": "Do not add box shadows, glass effects, gradients, or glow; use fill, rule, and visibility changes to communicate layers.", "section": "elevation" },
+        { "name": "The Pill Is a Control Rule", "body": "Pills identify actionable controls, filters, range-adjacent tools, and transient feedback; content rows and page regions remain rectilinear.", "section": "shapes" }
+      ],
+      "dos": [
+        "Do keep search, playback, lyrics, and library actions visible and immediate.",
+        "Do let album covers and real music metadata provide visual richness.",
+        "Do keep orange scarce and tied to live playback or explicit state.",
+        "Do preserve 44px mobile actions, visible focus, inert off-canvas surfaces, and focus return.",
+        "Do collapse secondary metadata before compressing track identity or playback.",
+        "Do honor reduced-motion preferences for sheets, lyrics, and transient feedback."
+      ],
+      "donts": [
+        "Don't add a poster-style hero, campaign copy, decorative equalizer, or cassette illustration.",
+        "Don't introduce gradients, glass, glow, ambient orange, or ornamental shadows.",
+        "Don't fabricate recommendations, testimonials, audience metrics, or listening statistics.",
+        "Don't use orange for ordinary primary buttons when white already communicates action.",
+        "Don't treat the phone as a squeezed desktop table.",
+        "Don't hide essential playback or library actions behind undersized targets."
+      ]
+    }
+  }
+}
