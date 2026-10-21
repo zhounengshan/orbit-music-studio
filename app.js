@@ -283,9 +283,13 @@ async function downloadTrack(track) {
     } else {
       url = track.localUrl || getSynthUrl(track); extension = track.localUrl ? 'mp3' : 'wav';
     }
-    const a = document.createElement('a');
-    a.href = url; a.download = `${track.artist} - ${track.title}.${extension}`; a.rel = 'noopener';
-    document.body.appendChild(a); a.click(); a.remove();
+    if (track.remote) {
+      window.location.assign(url);
+    } else {
+      const a = document.createElement('a');
+      a.href = url; a.download = `${track.artist} - ${track.title}.${extension}`; a.rel = 'noopener';
+      document.body.appendChild(a); a.click(); a.remove();
+    }
     if (!state.downloads.includes(String(track.id))) state.downloads.unshift(String(track.id));
     saveState(); renderTracks(visibleTracks); toast(`已开始下载：${track.title}`);
   } catch (error) { toast(error.message || '下载地址获取失败'); }
