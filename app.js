@@ -272,20 +272,22 @@ async function downloadTrack(track) {
   try {
     let url, extension = 'wav';
     if (track.remote) {
-      toast('正在获取下载地址…');
+      toast('正在准备下载…');
+      await refreshRemoteTrack(track);
       const info = track.minfo?.find(item => item.format === 'flac') || track.minfo?.find(item => String(item.bitrate) === '320') || track.minfo?.[0];
       if (!info) throw new Error('没有可用的下载音质');
-      const result = await api('/api/url', {platform:track.platform, songid:track.sourceId, format:info.format, bitrate:info.bitrate, time:track.time, sign:track.sign});
-      url = result.data?.url; extension = info.format || 'mp3';
+      extension = info.format || 'mp3';
+      const filename = `${track.artist} - ${track.title}.${extension}`;
+      url = apiUrl('/api/download', {platform:track.platform, songid:track.sourceId, format:info.format, bitrate:info.bitrate, time:track.time, sign:track.sign, filename}).href;
       const saved = {...track}; delete saved.resolvedUrl; delete saved.lyrics; state.remoteLibrary[String(track.id)] = saved;
     } else {
       url = track.localUrl || getSynthUrl(track); extension = track.localUrl ? 'mp3' : 'wav';
     }
     const a = document.createElement('a');
-    a.href = url; a.download = `${track.artist} - ${track.title}.${extension}`; a.target = '_blank'; a.rel = 'noopener';
+    a.href = url; a.download = `${track.artist} - ${track.title}.${extension}`; a.rel = 'noopener';
     document.body.appendChild(a); a.click(); a.remove();
     if (!state.downloads.includes(String(track.id))) state.downloads.unshift(String(track.id));
-    saveState(); renderTracks(visibleTracks); toast(`已打开下载：${track.title}`);
+    saveState(); renderTracks(visibleTracks); toast(`已开始下载：${track.title}`);
   } catch (error) { toast(error.message || '下载地址获取失败'); }
 }
 
