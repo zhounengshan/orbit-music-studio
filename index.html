@@ -83,6 +83,10 @@
           </div>
           <div class="table-head" aria-hidden="true"><span></span><span>歌曲</span><span>专辑</span><span>音质</span><span>时长</span><span></span></div>
           <div class="track-table" id="trackTable"></div>
+          <div class="search-pagination" id="searchPagination" hidden>
+            <button type="button" id="loadMoreBtn">加载更多</button>
+            <span id="searchProgress" role="status"></span>
+          </div>
           <div class="empty-state" id="emptyState">
             <div class="empty-mark"><svg class="icon"><use href="#icon-search"/></svg></div>
             <h2>从一首歌开始</h2>
@@ -139,7 +143,7 @@
     </div>
   </div>
   <audio id="audio" preload="metadata"></audio>
-  <script src="./app.js?v=3"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>
 
