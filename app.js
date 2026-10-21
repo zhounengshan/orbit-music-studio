@@ -12,6 +12,12 @@ let localTracks = [];
 let searchTracks = [];
 let searchSerial = 0;
 let activePlaylistName = null;
+let searchPage = 1;
+let searchTotal = 0;
+let searchKeyword = '';
+let searchPlatform = 'all';
+let searchLoadingMore = false;
+let searchHasMore = false;
 const audio = document.querySelector('#audio');
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
@@ -81,6 +87,15 @@ function renderTracks(list = visibleTracks) {
   $('#libraryCount').textContent = allTracks().length;
   $('#favoriteCount').textContent = state.favorites.size;
   $('#downloadCount').textContent = state.downloads.length;
+}
+
+function updateSearchPagination() {
+  const pagination = $('#searchPagination');
+  const button = $('#loadMoreBtn');
+  pagination.hidden = !searchTracks.length || !searchHasMore;
+  button.disabled = searchLoadingMore;
+  button.textContent = searchLoadingMore ? '正在加载…' : '加载更多';
+  $('#searchProgress').textContent = searchTotal ? `已显示 ${searchTracks.length} / ${searchTotal} 首` : `已显示 ${searchTracks.length} 首`;
 }
 
 function currentTrack() { return activeTrack; }
@@ -309,6 +324,7 @@ function showView(view) {
   else visibleTracks = all;
   playQueue = visibleTracks;
   renderTracks(visibleTracks);
+  $('#searchPagination').hidden = view !== 'discover' || !searchHasMore;
   if (innerWidth <= 980) closeSidebar();
 }
 
@@ -367,6 +383,13 @@ async function runSearch() {
   if (!keyword) return showView('discover');
   const serial = ++searchSerial;
   const platform = $('#sourceSelect').value;
+  searchPage = 1;
+  searchTotal = 0;
+  searchKeyword = keyword;
+  searchPlatform = platform;
+  searchLoadingMore = false;
+  searchHasMore = false;
+  $('#searchPagination').hidden = true;
   document.body.classList.add('results-active');
   $('#sectionTitle').textContent = `搜索「${keyword}」`;
   $('#sectionSubtitle').textContent = innerWidth < 740 ? '点按播放按钮开始播放。' : '选择播放按钮，或双击歌曲所在行开始播放。';
@@ -376,11 +399,43 @@ async function runSearch() {
     const result = await api('/api/search', {keyword, platform, page:1, size:20});
     if (serial !== searchSerial) return;
     searchTracks = (result.data?.list || []).map((item, index) => normalizeRemote(item, platform === 'all' ? item._platform : platform, index));
+    searchTotal = Number(result.data?.total) || searchTracks.length;
+    searchHasMore = searchTracks.length > 0 && searchTracks.length < searchTotal;
     visibleTracks = searchTracks; playQueue = searchTracks; renderTracks();
-    toast(`找到 ${result.data?.total ?? searchTracks.length} 条结果`);
+    updateSearchPagination();
+    toast(`找到 ${searchTotal} 条结果`);
   } catch (error) {
     if (serial !== searchSerial) return;
     visibleTracks = []; renderTracks(); $('#emptyState p').textContent = error.message || '搜索服务暂时不可用'; toast(error.message || '搜索失败');
+  }
+}
+
+async function loadMoreSearch() {
+  if (searchLoadingMore || !searchHasMore || !searchKeyword) return;
+  searchLoadingMore = true;
+  updateSearchPagination();
+  const serial = searchSerial;
+  try {
+    const nextPage = searchPage + 1;
+    const result = await api('/api/search', {keyword:searchKeyword, platform:searchPlatform, page:nextPage, size:20});
+    if (serial !== searchSerial) return;
+    const incoming = (result.data?.list || []).map((item, index) => normalizeRemote(item, searchPlatform === 'all' ? item._platform : searchPlatform, searchTracks.length + index));
+    const merged = new Map(searchTracks.map(track => [String(track.id), track]));
+    incoming.forEach(track => merged.set(String(track.id), track));
+    const previousCount = searchTracks.length;
+    searchTracks = [...merged.values()];
+    searchPage = nextPage;
+    searchTotal = Number(result.data?.total) || searchTotal || searchTracks.length;
+    searchHasMore = incoming.length > 0 && searchTracks.length > previousCount && searchTracks.length < searchTotal;
+    visibleTracks = searchTracks;
+    playQueue = searchTracks;
+    renderTracks();
+    toast(searchHasMore ? `已加载 ${searchTracks.length} 首` : `已显示全部 ${searchTracks.length} 首`);
+  } catch (error) {
+    toast(error.message || '更多歌曲加载失败');
+  } finally {
+    searchLoadingMore = false;
+    updateSearchPagination();
   }
 }
 
@@ -414,6 +469,11 @@ $('#trackTable').addEventListener('dblclick', e => {
 });
 
 $('#searchBtn').onclick = runSearch;
+$('#loadMoreBtn').onclick = loadMoreSearch;
+$('.content').addEventListener('scroll', e => {
+  const el = e.currentTarget;
+  if (!$('#searchPagination').hidden && el.scrollHeight - el.scrollTop - el.clientHeight < 260) loadMoreSearch();
+}, {passive:true});
 $('#searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); runSearch(); } });
 document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); $('#searchInput').focus(); } });
 $$('.nav-item').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view)));
@@ -469,6 +529,7 @@ $('#playlistNav').addEventListener('click', e => {
     $('#sectionTitle').textContent = name;
     $('#sectionSubtitle').textContent = visibleTracks.length ? `${visibleTracks.length} 首歌曲` : '播放一首歌后，点击歌单旁的 + 即可加入。';
     $$('.nav-item').forEach(x => x.classList.remove('active'));
+    $('#searchPagination').hidden = true;
     renderTracks(visibleTracks); closeSidebar();
   }
 });
